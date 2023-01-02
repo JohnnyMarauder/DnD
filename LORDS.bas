@@ -1,11 +1,11 @@
-1  COM I$[20],N$[20],N1$[25],W[10],K[34],P[20,20],R[30],M0$[240]
-2  COM R,C,S2,G,R1,A2,T,S1,H1,H3,N7,L,C9
+10  COM I$[20],N$[20],N1$[25],W[10],K[34],P[20,20],R[30],M0$[240]
+20  COM R,C,S2,G,R1,A2,T,S1,H1,H3,N7,L,C9
 20  COM T$[8],T0$[72],U$[8],U0$[160],O$[5],A0$[210],W$[130],D$[5]
 30  COM M$[9],M[10,30],F[10,30]
 40  COM A[10],E[10],S[30],G1,V,X,W1,P2,A$[21]
 59  IF  ERROR  THEN 9998
 60  FILES HROLL.A100,HROLL.A100
-70  DIM Q$[25],N0$[25],Q1$[25]
+70  DIM Q$[25],N0$[25],Q1$[25],G1$[7]
 100  LOCK #1,A
 110  IF A#0 THEN 100
 120  GOSUB 870
@@ -131,7 +131,10 @@
 3020  FOR I=1 TO P9
 3030  X=INT(RND(5)*30+1)
 3040  R[X]=INT(RND(5)*20+40)+R[X]
-3060  PRINT "A ";M0$[8*X-7,8*X];" Ring of Power!"
+3042  Q1$ = M0$[8*X-7,8*X]
+3043  IF POS(Q1$," ") = 0 then 3060 
+3044  Q1$ = Q1$[1,POS(Q1$," ")-1]
+3060  PRINT "A ";Q1$;" Ring of Power!"
 3070  NEXT I
 3080  PRINT "Rings of Power reduce their monster's prob. of hitting you."
 3090  PRINT "However, they have a limited number of uses.  Use the"
@@ -140,7 +143,7 @@
 3200  N7=1+INT(RND(5)*10)/10
 3210  G=G+40+INT(20*R1)
 3220  PRINT "A brilliant Gem of Light!  it is worth";40+INT(20*R1);" gold."
-3230  PRINT "However, it is so bright that ";N1$;" is blinded!"'27"[4~"
+3230  PRINT "However, it is so bright that ";N1$;" is blinded!"
 3240  GOTO 9900
 3300  PRINT "A magic potion!  Does ";N1$;" drink it";
 3310  INPUT O$
@@ -334,17 +337,20 @@
 5570  PRINT "How much Rank do you wager";
 5580  INPUT P9
 5590  IF P9<R1/20 OR P9>R1 THEN 5510
-5600  PRINT "You bet";P9;"in Rank.  ";
+5595  CONVERT P9 TO G1$
+5600  PRINT "You bet ";G1$;" in Rank.  ";
 5605  SYSTEM W4,"PAU-3"
 5610  GOTO INT(RND(5)*2+1) OF 5620,5670
 5620  R1=R1+P9
+5625  CONVERT R1 TO G1$
 5630  PRINT "And WON!"
-5640  PRINT "You are now rank";R1
+5640  PRINT "You are now rank ";G1$
 5650  PRINT "Mage Lauterbach says:  Good-bye!  Come again."
 5660  GOTO 9900
 5670  R1=(R1-P9) MAX 1
+5675  CONVERT R1 TO G1$
 5680  PRINT "And lost."
-5690  PRINT "Your Rank is now";R1
+5690  PRINT "Your Rank is now ";G1$
 5700  IF RND(5)>.8 THEN 5650
 5710  PRINT "Mage Lauterbach says:  Would you like to try again";
 5720  GOTO 5390
@@ -355,10 +361,12 @@
 5770  SYSTEM W4,"PAU-3"
 5780  GOTO INT(RND(5)*2+1) OF 5785,5805
 5785  S2=S2+P9
-5790  PRINT "You WIN!  Your strength is";S2;"blows."
+5787  CONVERT S2 TO G1$
+5790  PRINT "You WIN!  Your strength is ";G1$;" blows."
 5800  GOTO 5650
 5805  S2=S2-P9
-5810  PRINT "You lose.  Your strength is";S2;"blows."
+5807  CONVERT S2 TO G1$
+5810  PRINT "You lose.  Your strength is ";G1$;" blows."
 5820  GOTO 5700
 5830  PRINT " .5"
 5840  PRINT "How much constitution do you wager";
@@ -371,10 +379,12 @@
 5870  SYSTEM W4,"PAU-3"
 5880  GOTO INT(RND(5)*2+1) OF 5890,5915
 5890  C9=C9+P9
-5900  PRINT "You WIN!  Your constitution is now";C9
+5895  CONVERT C9 to G1$
+5900  PRINT "You WIN!  Your constitution is now ";G1$
 5910  GOTO 5650
 5915  C9=C9-P9
-5920  PRINT "You lose.  Your constitution is now";C9
+5917  CONVERT C9 to G1$
+5920  PRINT "You lose.  Your constitution is now ";G1$
 5930  GOTO 5700
 5940  PRINT INT(G/10)
 5950  PRINT "What is your wager";
@@ -383,10 +393,12 @@
 5980  SYSTEM W4,"PAU-3"
 5990  GOTO INT(RND(5)*2+1) OF 5995,6015
 5995  G=G+P9
-6000  PRINT "You WIN!  You now have";G;"gold."
+5996  CONVERT G TO G1$
+6000  PRINT "You WIN!  You now have ";G1$;" gold."
 6010  GOTO 5650
 6015  G=G-P9
-6020  PRINT "You lose.  You now have";G;"gold."
+6017  CONVERT G TO G1$
+6020  PRINT "You lose.  You now have ";G1$;" gold."
 6030  GOTO 5700
 9900  CHAIN "DND.A100",2170
 9998  CHAIN "DND.A100",4100
