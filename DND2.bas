@@ -1,8 +1,9 @@
-1  COM I$[20],N$[20],N1$[25],W[10],K[34],P[20,20],R[30],M0$[240]
-2  COM R,C,S2,G,R1,A2,T,S1,H1,H3,N7,L,C9
-20  COM T$[8],T0$[72],U$[8],U0$[160],O$[5],A0$[210],W$[130],D$[5]
-30  COM M$[9],M[10,30],F[10,30]
-40  COM A[10],E[10],S[30],G1,V,X,W1,P2,A$[21]
+10  COM I$[20],N$[20],N1$[25],W[10],K[34],P[20,20],R[30],M0$[240]
+20  COM R,C,S2,G,R1,A2,T,S1,H1,H3,N7,L,C9
+30  COM T$[8],T0$[72],U$[8],U0$[160],O$[5],A0$[210],W$[130],D$[5]
+40  COM M$[9],M[10,30],F[10,30]
+50  COM A[10],E[10],S[30],G1,V,X,W1,P2,A$[21]
+70  DIM Q$[25],N0$[25],Q1$[25],G1$[7]
 100  REM *************************************************************
 110  REM                  CHAIN Subroutines from *DND
 120  REM
@@ -38,7 +39,7 @@
 8190  PRINT "in the room.  Cutting the beast open reveals some ";T$;"."
 8195  PRINT H1;" gold worth of ";T$
 8200  GOTO 8400
-8210  PRINT N1$;" finds some ;"T$;" in a small wooden chest in the"
+8210  PRINT N1$;" finds some ";T$;" in a small wooden chest in the"
 8220  PRINT "north west corner of the room.  Worth :";H1;" gold."
 8230  GOTO 8400
 8240  PRINT "The ";M$;" were hoarding ";T$;"!  ";N1$;" picks up"
