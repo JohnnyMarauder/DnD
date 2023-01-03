@@ -119,7 +119,7 @@
 2780  IF S2 >= 0 THEN 2830
 2800  PURGE W4,I$
 2810  PRINT N1$;"has been killed!"'7'7'7'7
-2820  GOTO 1
+2820  GOTO 100
 2830  PRINT N1$;" has ";S2;" blows left!"
 2840  PRINT LIN(1)"Inside the chest ";N1$;" finds"
 2850  P9=INT(RND(5)*3+1)
