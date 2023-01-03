@@ -1,0 +1,82 @@
+I$[20] 		Name of the file that stores non-changing game data. 
+N$[20] 		Real name of person playing
+N1$[25] 	The Adventurer's Name in the game (you can enter 20)  As you get better, 
+		it will get prefixed with "Lord ", " Sir ", etc.  
+W[10]		Weapons you have array. 0 = You don't have it, 1 = you do. 
+K[34] 		Keys for current level you have to open doors  ":?
+P[20,20] 	The Level matrix. 20x20 rooms per level.  
+         	The room value is a Decimal Number with 6 decimal places define things
+		in the room.
+		Range is 0.00000 to 0.99999, Default room value is 0.00013 
+	 		0.[0]0000	Number of monsters in the room (stored in V when found)
+	 		0.0[00]00   	/3  is the monter ofset in the M0$ array and stored in X
+	 		Certain rooms get special values:.
+				-5 = Stairway leading up one level
+				-7 = Stairway leading down one level
+				-9 = Special treasure chest or some such!
+R[30] 		Rings of Power[x]=1 you have it, =0 you do not.  
+		If = 1, probability of weapon hitting is doubled  
+M0$[240] 	is the monsters, 30 of them, 8 characters long each in one long string;
+         	1---+---|10---+-|--20---|----30-|-+----40 
+                Mummy...Spider..Bat.....Goblin..Ghost... (etc.)
+R		is ther row of the room matrix where you are
+C		is the column of the room matrix where you are
+S2		Current Strength (hit points)
+G		Current Gold you hold
+R1		Current Rank
+A2		Armor # you are wearing
+T		Time
+S1		Blows to kill the monster(s) in the room
+H1		Modifier to Rank if you win battle (lots of maths)
+H3		Trakcs remaining monsters in the room??
+N7		Health issues:
+			0:	None
+			1:	Blind
+			2:	Berserk
+			3:	Invunerable
+			4:	X-ray vision
+
+L		Current Level
+C9		Current Constitution (check to see if you are too sick to move)
+A$[210]		is array of Armor x deep, each length 21 chars
+W$[130]		is the Weapon String 10 deep, each 13 chars 
+E[10]		Is weapon Enchanted? Price of Weapon[x] in gold and Hits /5 per Blow  (set as multiples of 5?)
+A[10]		Price of armor[x] (1-10) in gold
+T$[8]		Current Treasure (8 chars)
+T0$[72]		Array of 9 treasure names each 8 chars  "Coins  Marbles Rubies  Pearls  Opals...Books...Etc...." 
+U$[8]		Sound made using the selected weapon on each remaining monster
+U0$[160]	String of weapon soundd, 8chars in length each for a total 20
+		(first 10 are sounds You make, last 10 are sounds Monsters make)
+O$[5]    	General prompt for next command
+D[5]		[ Not Used! ]
+S[30]		Strength of the monsters 1..30
+M$[8]		The current monster in the room, if any
+M[10,30]	Probability of Weapon[x](10) hitting monster[y](30)
+F[10,30]	Probability of Armor[x](10) defending against monster[y](30)
+
+FILE NAMED "*ST2" needs the following data to be read:
+
+MAT READ S,E,A,M,F
+
+4000  REM Edit the Monsters
+4005  PRINT LIN(1)"EDIT MONSTERS"lin(1)
+4010  FOR X=1 TO 30
+4020  PRINT X;"Name [";M0$[X*8-7,X*8];"]"
+4030  NEXT X
+4040  PRINT "Edit # (0=done) ";
+4050  INPUT X
+4060  IF X <= 0 THEN 375
+4070  IF X<31 THEN 4095
+4080  goto 4000
+4095  P$=M0$[X*8-7,X*8]
+4100  PRINT "Enter the description for Monster #";X;" ('.' to not change) ";
+4104  P1$=P$
+4110  INPUT P1$
+4115  IF P1$="." THEN 4000
+4117  P$=P1$
+4120  M0$[X*8-7,X*8]=P1$[1,8]
+4999  GOTO 4000
+
+1100 PRINT "Enter the description for Armor #";X;" ('.' to not change) ";
+
+
